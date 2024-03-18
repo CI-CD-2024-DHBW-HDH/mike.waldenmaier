@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: klausur-deployment
+  labels:
+    app: klausur
+spec:
+  selector:
+    matchLabels:
+      app: klausur
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: klausur
+    spec:
+      containers:
+        - name: klausur
+          image: ghcr.io/ci-cd-2024-dhbw-hdh/mike.waldenmaier/klausur:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+      imagePullSecrets:
+        - name: regcred
